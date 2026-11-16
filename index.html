@@ -696,7 +696,7 @@ const clk=document.getElementById('clk'),barI=document.querySelector('#bar i'),c
 const mmss=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(Math.floor(s%60)).padStart(2,'0');
 function hud(){const n=nightAt(T);clk.textContent=(paused?'pausa ':'')+mmss(T)+' / '+mmss(LOOP)+' · '+(n>.6?'noche':n>0?(T<150?'atardecer':'amanecer'):'día');barI.style.width=(T/LOOP*100)+'%';
   const t=guideOn?GUIDE[guideIdx()]:'';if(cap.textContent!==t)cap.textContent=t}
-function fit(){const aw=innerWidth-16,ah=innerHeight-100;let s=Math.min(aw/W,ah/H);if(s>=1)s=Math.floor(s);cv.style.width=W*s+'px';cv.style.height=H*s+'px'}
+function fit(){const aw=innerWidth-16,ah=innerHeight-100,w=Math.max(180,Math.floor(Math.min(aw,ah*W/H)));cv.style.width=w+'px';cv.style.height=Math.round(w*H/W)+'px'}
 function tick(now){const dt=(now-last)/1000;last=now;if(!paused)offset=cyc(offset+Math.min(Math.max(dt,0),.1));T=offset;draw();hud();requestAnimationFrame(tick)}
 function setOrigin(e){const r=wrap.getBoundingClientRect();cv.style.transformOrigin=((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%'}
 addEventListener('resize',fit);
